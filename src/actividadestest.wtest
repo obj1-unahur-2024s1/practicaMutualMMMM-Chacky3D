@@ -1,0 +1,117 @@
+import actividades.*
+
+test "El modelo de viaje de playa funciona correctamente" {
+
+	const pla1 = new ViajeDePlaya(idiomas = ["Español", "Inglés"], largoDePlaya = 1050)
+	const pla2 = new ViajeDePlaya(idiomas = ["Español"], largoDePlaya = 1500)
+	
+	assert.notThat(pla1.implicaEsfuerzo())
+	assert.that(pla2.implicaEsfuerzo())
+	
+	assert.that(pla1.sirveParaBroncearse())
+	assert.that(pla2.sirveParaBroncearse())
+	
+	assert.equals(2.1, pla1.cantidadDeDias())
+	assert.equals(3, pla2.cantidadDeDias())
+	
+	assert.that(pla1.esInteresante())
+	assert.notThat(pla2.esInteresante())
+	
+}
+
+test "El modelo de excursion a ciudad funciona correctamente" {
+
+	const exc1 = new ExcursionACiudad(idiomas = ["Italiano"], cantidadDeAtracciones = 5)
+	const exc2 = new ExcursionACiudad(idiomas = ["Italiano", "Frances"], cantidadDeAtracciones = 9)
+	
+	assert.that(exc1.implicaEsfuerzo())
+	assert.notThat(exc2.implicaEsfuerzo())
+	
+	assert.notThat(exc1.sirveParaBroncearse())
+	assert.notThat(exc2.sirveParaBroncearse())
+	
+	assert.equals(2.5, exc1.cantidadDeDias())
+	assert.equals(4.5, exc2.cantidadDeDias())
+	
+	assert.that(exc1.esInteresante())
+	assert.that(exc2.esInteresante())
+	
+}
+
+test "El modelo de excursion a ciudad topical funciona correctamente" {
+
+	const exc1 = new ExcursionACiudadTropical(idiomas = ["Italiano"], cantidadDeAtracciones = 5)
+	const exc2 = new ExcursionACiudadTropical(idiomas = ["Italiano", "Frances"], cantidadDeAtracciones = 9)
+	
+	assert.that(exc1.implicaEsfuerzo())
+	assert.notThat(exc2.implicaEsfuerzo())
+	
+	assert.that(exc1.sirveParaBroncearse())
+	assert.that(exc2.sirveParaBroncearse())
+	
+	assert.equals(3.5, exc1.cantidadDeDias())
+	assert.equals(5.5, exc2.cantidadDeDias())
+	
+	assert.that(exc1.esInteresante())
+	assert.that(exc2.esInteresante())
+	
+}
+
+test "El modelo de salida de trekking funciona correctamente" {
+
+	const tre1 = new SalidaDeTrekking(idiomas = ["Chino"], kilometrosARecorrer = 50, diasDeSolPorAnio = 100)
+	const tre2 = new SalidaDeTrekking(idiomas = ["Chino", "Ruso"], kilometrosARecorrer = 150, diasDeSolPorAnio = 160)
+	
+	assert.notThat(tre1.implicaEsfuerzo())
+	assert.that(tre2.implicaEsfuerzo())
+	
+	assert.notThat(tre1.sirveParaBroncearse())
+	assert.that(tre2.sirveParaBroncearse())
+	
+	assert.equals(1, tre1.cantidadDeDias())
+	assert.equals(3, tre2.cantidadDeDias())
+	
+	assert.notThat(tre1.esInteresante())
+	assert.that(tre2.esInteresante())
+	
+}
+
+test "El modelo de la clase de gimnasia funciona correctamente" {
+	
+	const gim = new ClaseDeGimnasia()
+	
+	assert.equals(["Español"], gim.idiomas())
+	
+	assert.that(gim.implicaEsfuerzo())
+	
+	assert.notThat(gim.sirveParaBroncearse())
+	
+	assert.equals(1, gim.cantidadDeDias())
+	
+	
+}
+
+test "El modelo del taller literario funciona correctamente" {
+	
+	const lib1 = new Libro(idioma= "Español", cantidadDePaginas = 250, nombreDelAutor = "Edgar Allan Poe")
+	const lib2 = new Libro(idioma= "Inglés", cantidadDePaginas = 340, nombreDelAutor = "Edgar Allan Poe")
+	const lib3 = new Libro(idioma= "Español", cantidadDePaginas = 480, nombreDelAutor = "Edgar Allan Poe")
+	const tal = new TallerLiterario(libros=[lib1, lib2, lib3])
+	
+	assert.equals(#{"Español", "Inglés"}, tal.idiomas())
+	
+	assert.notThat(tal.hayUnLibroExtenso())
+	
+	assert.that(tal.sonDelMismoAutor())
+	
+	assert.that(tal.implicaEsfuerzo())
+	
+	assert.notThat(tal.sirveParaBroncearse())
+	
+	assert.equals(4, tal.cantidadDeDias())
+	
+}
+
+
+
+

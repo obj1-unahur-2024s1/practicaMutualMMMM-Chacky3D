@@ -1,0 +1,62 @@
+import socios.*
+import actividades.*
+
+test "El modelo de socio tranquilo funciona correctamente" {
+	
+	const tre1 = new SalidaDeTrekking(idiomas = ["Chino"], kilometrosARecorrer = 50, diasDeSolPorAnio = 100)
+	const exc2 = new ExcursionACiudadTropical(idiomas = ["Italiano", "Frances"], cantidadDeAtracciones = 9)
+	const pla1 = new ViajeDePlaya(idiomas = ["Español", "Inglés"], largoDePlaya = 1050)
+	const soc = new SocioTranquilo(edad = 15, idiomas = ["Español"], actividadesRealizadas = [pla1], maximoDeActividades = 2)
+	
+	assert.that(soc.esAdoradorDelSol())
+	
+	assert.equals([], soc.actividadesEsforzadas())
+	
+	assert.that(soc.leAtrae(exc2))
+	
+	assert.notThat(soc.yaRealizo(exc2))
+	
+	soc.realizar(exc2)
+	
+	assert.that(soc.yaRealizo(exc2))
+	
+	assert.notThat(tre1.esRecomendadaPara(soc))
+
+}
+
+test "El modelo de socio coherente funciona correctamente" {
+	
+	const gim = new ClaseDeGimnasia()
+	const exc2 = new ExcursionACiudadTropical(idiomas = ["Italiano", "Frances"], cantidadDeAtracciones = 9)
+	const tre1 = new SalidaDeTrekking(idiomas = ["Chino"], kilometrosARecorrer = 50, diasDeSolPorAnio = 100)
+	const soc = new SocioCoherente(edad = 22, idiomas = ["Español"], actividadesRealizadas = [tre1], maximoDeActividades = 2)
+	
+	assert.notThat(soc.esAdoradorDelSol())
+	
+	assert.equals([], soc.actividadesEsforzadas())
+	
+	assert.notThat(soc.leAtrae(exc2))
+	
+	assert.notThat(soc.yaRealizo(exc2))
+	
+	assert.that(gim.esRecomendadaPara(soc))
+
+}
+
+test "El modelo de socio relajado funciona correctamente" {
+	
+	const gim = new ClaseDeGimnasia()
+	const tre2 = new SalidaDeTrekking(idiomas = ["Chino", "Ruso"], kilometrosARecorrer = 150, diasDeSolPorAnio = 160)
+	const soc = new SocioRelajado(edad = 22, idiomas = ["Chino"], actividadesRealizadas = [gim], maximoDeActividades = 2)
+	
+	assert.notThat(soc.esAdoradorDelSol())
+	
+	assert.equals([gim], soc.actividadesEsforzadas())
+	
+	assert.that(soc.leAtrae(tre2))
+	
+	assert.notThat(soc.yaRealizo(tre2))
+	
+	assert.that(tre2.esRecomendadaPara(soc))
+	
+}
